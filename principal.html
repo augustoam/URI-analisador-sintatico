@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Analisador Sintático</title>
+  <link rel="stylesheet" href="css/libs/materialize.min.css">
+  <link rel="stylesheet" href="css/libs/google-fonts.css">
+  <link rel="stylesheet" href="css/estilos.css">
+</head>
+
+<body>
+  <nav>
+    <div class="nav-wrapper red lighten-2 center-align">
+      <span style="font-size: 1.1em;">ANALISADOR SINTÁTICO - AUGUSTO PEDROLLO ALBERTONI</span>
+    </div>
+  </nav>
+
+  <ul class="tabs gray">
+    <li class="tab col s3"><a class="active" href="#producao">PRODUÇÃO</a></li>
+    <li class="tab col s3"><a href="#gerador">GERADOR</a></li>
+  </ul>
+
+  <div id="producao" class="container">
+
+    <div class="row" style="margin-top: 3em;">
+      <div class="area-gramatica col m2 font-gramatica">
+        <span>
+            <strong>Gramática: <br></strong>
+            S ::= aAc | C <br>
+            A ::= aBc | bA | ε <br>
+            B ::= cCa | aB | C<br>
+            C ::= bBa | c <br>
+          </span>
+      </div>
+
+      <div class=" area-first col m2 font-gramatica">
+        <span>
+            <strong>First:</strong> <br>
+            S ::= { a, b, c } <br>
+            A ::= { a, b, ε } <br>
+            B ::= { c, a, b } <br>
+            C ::= { b, c } <br>
+          </span>
+      </div>
+
+      <div class=" area-follow col m2 font-gramatica">
+        <span>
+            <strong>Follow:</strong> <br>
+            S ::= { $ } <br>
+            A ::= { c } <br>
+            B ::= { c, a } <br>
+            C ::= { a, c, $ } <br>
+          </span>
+      </div>
+
+      <div class="area-tabela col m6">
+
+        <table class="centered bordered tabela-gramatica font-table">
+          <thead>
+            <th>-</th>
+            <th>a</th>
+            <th>b</th>
+            <th>c</th>
+            <th>$</th>
+          </thead>
+          <tbody>
+            <tr class="tr-tabela line-S">
+              <td>S</td>
+              <td class="coluna-a">S → aAc</td>
+              <td class="coluna-b">S → C</td>
+              <td class="coluna-c">S → C</td>
+              <td class="coluna-s"></td>
+            </tr>
+            <tr class="tr-tabela line-A">
+              <td>A</td>
+              <td class="coluna-a">A → aBc</td>
+              <td class="coluna-b">A → bA</td>
+              <td class="coluna-c">A → ε</td>
+              <td class="coluna-s"></td>
+            </tr>
+            <tr class="tr-tabela line-B">
+              <td>B</td>
+              <td class="coluna-a">B → aB</td>
+              <td class="coluna-b">B → C</td>
+              <td class="coluna-c">B → cCa</td>
+              <td class="coluna-s"></td>
+            </tr>
+            <tr class="tr-tabela line-C">
+              <td>C</td>
+              <td class="coluna-a"></td>
+              <td class="coluna-b">C → bBa</td>
+              <td class="coluna-c">C → c</td>
+              <td class="coluna-s"></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+  <div id="gerador" class="container">
+    <div style="margin-top: 2em;">
+      <div class="row">
+        <form class="col m12">
+          <div class="input-field col m8">
+            <input placeholder="Insira aqui os tokens" class="token ion-item"></imput>
+          </div>
+          <div class="input-field col m1" style="margin-left:20px">
+            <a class="btn red lighten-2 btn-gerar z-depth-3">Gerar</a>
+          </div>
+          <div class="input-field  col m1" style="margin-left:20px">
+            <a class="btn red lighten-2 btn-testar z-depth-3">Testar</a>
+          </div>
+          <div class="input-field col m1" style="margin-left:20px">
+            <a class="btn red lighten-2 btn-limpar z-depth-3">Limpar</a>
+          </div>
+        </form>
+      </div>
+
+      <div class="col m12">
+        <table class="centered borderd">
+          <thead>
+            <th>Pilha</th>
+            <th>Entrada</th>
+            <th>Ação</th>
+          </thead>
+          <tbody class="tbody-table">
+
+          </tbody>
+        </table>
+      </div>
+      <div class="center">
+        <a style="margin: 4em;" class="btn black btn-passos z-depth-3">Passo a passo</a>
+      </div>
+    </div>
+  </div>
+
+  <script src="js/jquery.js"></script>
+  <script type="text/javascript" src="js/materialize.min.js"></script>
+  <script src="js/main.js"></script>
+  <script src="js/eventos.js"></script>
+  <script src="js/util.js"></script>
+  <script src="js/tabela.js"></script>
+
+</body>
+
+</html>
